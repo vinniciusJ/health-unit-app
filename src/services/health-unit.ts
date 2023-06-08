@@ -4,8 +4,7 @@ import { healthUnitAPI } from "./api";
 import { Geolocation } from "../schemas/geolocation";
 import { HealthUnitFilter } from "../interfaces/health-unit-filter";
 
-const RADIUS = 5
-
+const RADIUS = 2
 
 export class HealthUnitsService {
     filter(params: HealthUnitFilter): Promise<AxiosResponse<HealthUnit[]>>{

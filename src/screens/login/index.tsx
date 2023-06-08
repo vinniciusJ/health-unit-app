@@ -3,7 +3,7 @@ import { styles } from './style'
 import { Button } from '../../components/button'
 import { TextField } from '../../components/text-field'
 import { useForm } from 'react-hook-form'
-import { credentialsSchema } from '../../schemas/credentials'
+import { Credentials, credentialsSchema } from '../../schemas/credentials'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useCallback } from 'react'
 import { useAuth } from '../../hooks/use-auth'
@@ -12,15 +12,13 @@ import { useAuth } from '../../hooks/use-auth'
 export const LoginScreen = () => {
     const { signIn } = useAuth()
 
-    const { control, handleSubmit } = useForm({
+    const { control, handleSubmit } = useForm<Credentials>({
         defaultValues: {
             email: '',
             password: '',
         },
-        // resolver: zodResolver(credentialsSchema)
+        resolver: zodResolver(credentialsSchema)
     })
-
-
 
     return (
         <SafeAreaView style={styles.container}>
