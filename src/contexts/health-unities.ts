@@ -8,8 +8,6 @@ export const healthUnitiesSelector = selector({
         try{
             const response = await getAllHealthUnities()
 
-            console.log(response)
-
             if(response.status === 200){
                 return response.data
             }

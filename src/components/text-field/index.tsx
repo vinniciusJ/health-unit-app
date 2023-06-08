@@ -6,7 +6,7 @@ import { Control, Controller, Path } from 'react-hook-form'
 type Type = 'email' | 'password' | 'text' | 'number'
 
 interface ControlInputProps<T extends object> {
-	label: string
+	label?: string
 	control: Control<T>
 	required?: boolean
 	name: Path<T>
@@ -16,7 +16,7 @@ interface ControlInputProps<T extends object> {
 }
 
 interface ControlSelectProps<T extends object> {
-	label: string
+	label?: string
 	control: Control<T>
 	required?: boolean
 	name: Path<T>
@@ -41,7 +41,7 @@ export function TextField<T extends object>({ control, required, name, select, t
 			name={name}
 			render={({ field }) =>  (
 				<View style={styles.container}>
-					<Text>{label}</Text>
+					{label && <Text>{label}</Text>}
 					<TextInput 
 						{...inputProps}
 						secureTextEntry={type === 'password'}
