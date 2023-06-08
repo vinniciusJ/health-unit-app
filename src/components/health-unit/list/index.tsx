@@ -16,7 +16,7 @@ const ICON_COLOR: Record<HealthUnitType, string> = {
 
 export const HealthUnitsList: FC = () => {
     const { healthUnits } = useHealthUnits()
-    const { watch, control } = useFormContext<HealthUnitFilter>()
+    const { watch } = useFormContext<HealthUnitFilter>()
 
     const query = watch('query')
 

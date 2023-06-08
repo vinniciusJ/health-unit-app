@@ -5,27 +5,13 @@ import { Control, Controller, Path } from 'react-hook-form'
 
 type Type = 'email' | 'password' | 'text' | 'number'
 
-interface ControlInputProps<T extends object> {
+interface Props<T extends object> extends Omit<TextInputProps, 'name'>{
 	label?: string
 	control: Control<T>
 	required?: boolean
 	name: Path<T>
-	select?: never
-	items?: never
 	type: Type
 }
-
-interface ControlSelectProps<T extends object> {
-	label?: string
-	control: Control<T>
-	required?: boolean
-	name: Path<T>
-	select: true
-	items: Array<{ value: string | number; label: string }>
-	type: Type
-}
-
-type Props<T extends object> = (ControlInputProps<T> | ControlSelectProps<T>) & Omit<TextInputProps, 'name'>
 
 const KEYBOARD_TYPE: Record<Type, KeyboardTypeOptions> = {
 	email: 'email-address',
@@ -34,7 +20,7 @@ const KEYBOARD_TYPE: Record<Type, KeyboardTypeOptions> = {
 	text: 'ascii-capable'
 }
 
-export function TextField<T extends object>({ control, required, name, select, type, items, label, ...inputProps }: Props<T>) {
+export function TextField<T extends object>({ control, required, name, type, label, ...inputProps }: Props<T>) {
     return (
         <Controller 
 			control={control}

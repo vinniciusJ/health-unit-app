@@ -34,5 +34,15 @@ export const styles = StyleSheet.create({
         gap: 8,
         width: '100%',
         justifyContent: 'space-between'
+    },
+    typeFilter: {
+        position: 'absolute',
+        top: 64,
+        right: 32,
+        
+        zIndex: 999,
+    },
+    select: {
+        borderRadius: 16
     }
 })

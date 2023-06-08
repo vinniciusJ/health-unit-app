@@ -3,26 +3,26 @@ import { Map } from "../../components/map"
 import { styles } from './style'
 import { useForm, FormProvider } from 'react-hook-form'
 import { TextField } from '../../components/text-field'
-import { useUserLocation } from '../../hooks/use-user-location'
-import { useClosestsHealthUnits } from '../../hooks/use-closests-health-units'
-import { HealthUnitPreview } from '../../components/health-unit/preview'
 import { startTransition, useEffect, useState } from 'react'
 import { ClosestsHealthUnits } from '../../components/health-unit/closests-list'
 import { HealthUnitsList } from '../../components/health-unit/list'
 import { HealthUnitFilter } from '../../interfaces/health-unit-filter'
 import { useHealthUnits } from '../../hooks/use-health-units'
+import { Select } from '../../components/select'
+
 
 export const HomeScreen = () => {
     const [ isSearching, setIsSearching ] = useState(false)
 
     const { filterHealthUnits } = useHealthUnits()
+
     const form = useForm<HealthUnitFilter>({
         defaultValues: {
-            query: ''
+            query: '', type: ''
         }
     })
 
-    const query = form.watch('query')
+    const [query, type] = form.watch(['query', 'type'])
 
     useEffect(() => {
         startTransition(() => {
@@ -30,9 +30,30 @@ export const HomeScreen = () => {
         })
     }, [ query ])
 
+    useEffect(() => {
+        form.setValue('type', '')
+    }, [isSearching])
+
+    useEffect(() => {
+        filterHealthUnits({ type })
+    }, [ type ])
+
     return (
         <>
             <Map />
+
+            <View style={styles.typeFilter}>
+                <Select
+                    name='type'
+                    control={form.control}
+                    style={styles.select}
+                    items={[
+                        { value: '', label: 'Todos' },
+                        { value: 'UBS', label: 'UBS' },
+                        { value: 'UPA', label: 'UPA' },
+                    ]}
+                />
+            </View>
 
             <View style={styles[isSearching ? 'searching' : 'container']}>
                 <FormProvider {...form}>
@@ -44,7 +65,8 @@ export const HomeScreen = () => {
                         onBlur={() => setIsSearching(false)}
                         placeholder='Buscar Unidade de Sáude'
                     />
-                    
+
+
                     {isSearching && <HealthUnitsList />}
                     {!isSearching && <ClosestsHealthUnits />}
                 </FormProvider>
