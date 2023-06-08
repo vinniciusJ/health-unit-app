@@ -1,15 +1,15 @@
 import { atom, atomFamily, selector, selectorFamily } from "recoil";
 import { HealthUnit } from "../schemas/health-unit";
-import { HealthUnitService } from "../services/health-unit";
+import { HealthUnitsService } from "../services/health-unit";
 import { AxiosError } from "axios";
 
-const healthUnitiesService = new HealthUnitService()
+const healthUnitsService = new HealthUnitsService()
 
-export const closestsHealthUnitiesSelector = selectorFamily({
-    key: 'closests-health-unities-selector',
+export const closestsHealthUnitsSelector = selectorFamily({
+    key: 'closests-health-units-selector',
     get: ([ lat, long ]: number[]) => async () => {
         try{
-            const response = await healthUnitiesService.getClosests({ lat, long })
+            const response = await healthUnitsService.getClosests({ lat, long })
 
             if(response.status == 200){
                 console.log(response.data)
@@ -27,7 +27,7 @@ export const closestsHealthUnitiesSelector = selectorFamily({
     }
 })
 
-export const closestsHealthUnitiesAtom = atomFamily<HealthUnit[], number[]>({
-    key: 'closests-health-unities-atom',
-    default: closestsHealthUnitiesSelector
+export const closestsHealthUnitsAtom = atomFamily<HealthUnit[], number[]>({
+    key: 'closests-health-units-atom',
+    default: closestsHealthUnitsSelector
 })

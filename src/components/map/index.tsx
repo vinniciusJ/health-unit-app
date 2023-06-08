@@ -2,13 +2,13 @@ import {  View, Text } from 'react-native'
 import { styles } from './style'
 import MapView, { Marker, Callout, Region } from 'react-native-maps'
 import { useUserLocation } from '../../hooks/use-user-location'
-import { useHealthUnities } from '../../hooks/use-health-unities'
+import { useHealthUnits } from '../../hooks/use-health-units'
 import { useCallback, useRef, useState } from 'react'
 import { getZoomLevel } from '../../utils/get-zoom-level'
 
 export const Map = () => {
     const userLocation = useUserLocation()
-    const { healthUnities } = useHealthUnities()
+    const { healthUnits } = useHealthUnits()
   
     return (
         <View style={styles.container}>
@@ -23,7 +23,7 @@ export const Map = () => {
                 
             >
                 <Marker coordinate={{...userLocation}} title='Você'/>
-                {healthUnities.map((healthUnit, index) => (
+                {healthUnits.map((healthUnit, index) => (
                     <Marker 
                         key={index}
                         title={healthUnit.name}

@@ -4,12 +4,12 @@ import { styles } from './style'
 import { useForm } from 'react-hook-form'
 import { TextField } from '../../components/text-field'
 import { useUserLocation } from '../../hooks/use-user-location'
-import { useClosestsHealthUnities } from '../../hooks/use-closests-health-unities'
+import { useClosestsHealthUnits } from '../../hooks/use-closests-health-units'
 import { HealthUnitPreview } from '../../components/health-unit/preview'
 
 export const HomeScreen = () => {
     const userLocation = useUserLocation()
-    const closestsHealthUnities = useClosestsHealthUnities(userLocation.latitude, userLocation.longitude)
+    const closestsHealthUnits = useClosestsHealthUnits(userLocation.latitude, userLocation.longitude)
 
     const { control } = useForm({
         defaultValues: {
@@ -36,7 +36,7 @@ export const HomeScreen = () => {
                         horizontal
                         contentContainerStyle={styles.scrollable}
                     >
-                        {closestsHealthUnities.map((healhtUnit, index) => (
+                        {closestsHealthUnits.map((healhtUnit, index) => (
                             <HealthUnitPreview key={index} {...healhtUnit} />
                         ))}
                     </ScrollView>
