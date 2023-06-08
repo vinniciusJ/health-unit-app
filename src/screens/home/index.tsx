@@ -1,4 +1,4 @@
-import { ScrollView, Text, View } from 'react-native'
+import { Button, ScrollView, Text, View } from 'react-native'
 import { Map } from "../../components/map"
 import { styles } from './style'
 import { useForm, FormProvider } from 'react-hook-form'
@@ -44,7 +44,7 @@ export const HomeScreen = () => {
                         onBlur={() => setIsSearching(false)}
                         placeholder='Buscar Unidade de Sáude'
                     />
-
+                    
                     {isSearching && <HealthUnitsList />}
                     {!isSearching && <ClosestsHealthUnits />}
                 </FormProvider>

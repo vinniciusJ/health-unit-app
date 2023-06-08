@@ -26,7 +26,13 @@ export const styles = StyleSheet.create({
         paddingTop: 64,
         paddingHorizontal: 24,
         display: 'flex',
+        gap: 24,
     },
-   
-    
+    inputContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        gap: 8,
+        width: '100%',
+        justifyContent: 'space-between'
+    }
 })
