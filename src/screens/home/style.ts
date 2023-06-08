@@ -15,11 +15,18 @@ export const styles = StyleSheet.create({
         display: 'flex',
         gap: 24
     },  
-    scrollable: {
-        columnGap: 16,
-    },
-    closests: {
+    searching: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        top: 0,
+        zIndex: 999,
+        backgroundColor: '#FFF',
+        paddingTop: 64,
+        paddingHorizontal: 24,
         display: 'flex',
-        gap: 16,
-    }
+    },
+   
+    
 })

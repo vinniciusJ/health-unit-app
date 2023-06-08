@@ -22,3 +22,5 @@ export const healthUnitSchema = z.object({
 export interface HealthUnit extends Omit<z.infer<typeof healthUnitSchema>, 'openingHours'>{
     openingHours: OpeningHours
 }
+
+export type HealthUnitType = HealthUnit['type']

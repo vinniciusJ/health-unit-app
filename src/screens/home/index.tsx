@@ -6,10 +6,13 @@ import { TextField } from '../../components/text-field'
 import { useUserLocation } from '../../hooks/use-user-location'
 import { useClosestsHealthUnits } from '../../hooks/use-closests-health-units'
 import { HealthUnitPreview } from '../../components/health-unit/preview'
+import { useState } from 'react'
+import { ClosestsHealthUnits } from '../../components/health-unit/closests-list'
 
 export const HomeScreen = () => {
-    const userLocation = useUserLocation()
-    const closestsHealthUnits = useClosestsHealthUnits(userLocation.latitude, userLocation.longitude)
+    const [ isSearching, setIsSearching ] = useState(false)
+
+    
 
     const { control } = useForm({
         defaultValues: {
@@ -21,27 +24,23 @@ export const HomeScreen = () => {
         <>
             <Map />
 
-            <View style={styles.container}>
+            <View style={styles[isSearching ? 'searching' : 'container']}>
                 <TextField
                     name='search' 
-                    control={control} 
                     type='text'
+                    control={control} 
+                    onFocus={() => setIsSearching(true)}
+                    onBlur={() => setIsSearching(false)}
                     placeholder='Buscar Unidade de Sáude'
                 />
 
-                <View style={styles.closests}>
-                    <Text>Unidades de saúde mais próximas: </Text>
+                {/* {isSearching && (
 
-                    <ScrollView 
-                        horizontal
-                        contentContainerStyle={styles.scrollable}
-                    >
-                        {closestsHealthUnits.map((healhtUnit, index) => (
-                            <HealthUnitPreview key={index} {...healhtUnit} />
-                        ))}
-                    </ScrollView>
-                </View>
+                )} */}
+
+                {!isSearching && <ClosestsHealthUnits />}
             </View>
+
         </>
     )
 }

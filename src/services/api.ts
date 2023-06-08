@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const healthUnitAPi = axios.create({
+export const healthUnitAPI = axios.create({
     baseURL: 'http://192.168.1.101:3333',
     headers: {
         'Access-Control-Allow-Origin': '*',

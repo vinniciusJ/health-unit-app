@@ -2,7 +2,7 @@ import { AxiosError } from "axios"
 import { useCallback } from "react"
 import { AuthService } from "../services/auth"
 import { Credentials } from "../schemas/credentials"
-import { healthUnitAPi } from "../services/api"
+import { healthUnitAPI } from "../services/api"
 import { AxiosRequestHeaders } from "axios"
 import { useNavigation } from "@react-navigation/native"
 
@@ -14,7 +14,7 @@ export const useAuth = () => {
             const response = await AuthService.signIn(credentials)
 
             if(response.status === 200){
-                healthUnitAPi.interceptors.request.use((config) => {
+                healthUnitAPI.interceptors.request.use((config) => {
                     config.headers = {
                         ...config.headers,
                         Authorization: `Bearer ${response.data.token}`
