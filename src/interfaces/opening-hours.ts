@@ -1,0 +1,1 @@
+export type OpeningHours = `${number}:${number} - ${number}:${number}`

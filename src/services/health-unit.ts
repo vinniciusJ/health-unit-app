@@ -7,7 +7,9 @@ const RADIUS = 5
 
 export class HealthUnitService {
     getClosests(geolocation: Geolocation): Promise<AxiosResponse<HealthUnit[]>> {
-        return healthUnitAPi.get<HealthUnit[]>('/health-unit', { params: { ...geolocation, radius: 1 } })
+        console.log(geolocation)
+
+        return healthUnitAPi.get<HealthUnit[]>('/health-unit/closests', { params: { ...geolocation, radius: 5 } })
     }
 }
 

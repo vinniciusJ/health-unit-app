@@ -12,6 +12,8 @@ export const closestsHealthUnitiesSelector = selectorFamily({
             const response = await healthUnitiesService.getClosests({ lat, long })
 
             if(response.status == 200){
+                console.log(response.data)
+
                 return response.data
             }
 
