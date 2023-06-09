@@ -1,14 +1,16 @@
-import {  View, Text } from 'react-native'
+import {  View } from 'react-native'
 import { styles } from './style'
-import MapView, { Marker, Callout, Region } from 'react-native-maps'
+import MapView, { Marker } from 'react-native-maps'
 import { useUserLocation } from '../../hooks/use-user-location'
-import { useHealthUnits } from '../../hooks/use-health-units'
-import { useCallback, useRef, useState } from 'react'
-import { getZoomLevel } from '../../utils/get-zoom-level'
+import { HealthUnit } from '../../schemas/health-unit'
+import { FC } from 'react'
 
-export const HealthUnitsMap = () => {
+interface Props{
+    healthUnits: HealthUnit[]
+}
+
+export const HealthUnitsMap: FC<Props> = ({ healthUnits }) => {
     const userLocation = useUserLocation()
-    const { healthUnits } = useHealthUnits()
   
     return (
         <View style={styles.container}>

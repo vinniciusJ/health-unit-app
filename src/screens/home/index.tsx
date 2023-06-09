@@ -3,7 +3,7 @@ import { HealthUnitsMap } from "../../components/map"
 import { styles } from './style'
 import { useForm, FormProvider } from 'react-hook-form'
 import { TextField } from '../../components/text-field'
-import { startTransition, useEffect, useRef, useState } from 'react'
+import { startTransition, useCallback, useEffect, useRef, useState } from 'react'
 import { ClosestsHealthUnits } from '../../components/health-unit/closests'
 import { HealthUnitsList } from '../../components/health-unit/list'
 import { HealthUnitFilter } from '../../interfaces/health-unit-filter'
@@ -16,7 +16,7 @@ export const HomeScreen = () => {
     const [ isSearching, setIsSearching ] = useState(false)
     const queryInputRef = useRef<TextInput>(null)
 
-    const { filterHealthUnits } = useHealthUnits()
+    const { healthUnits, filterHealthUnits } = useHealthUnits()
 
     const form = useForm<HealthUnitFilter>({
         defaultValues: {
@@ -25,6 +25,12 @@ export const HomeScreen = () => {
     })
 
     const [query, type] = form.watch(['query', 'type'])
+
+    const closeSearching = useCallback(() => {
+        queryInputRef.current?.blur()
+
+        setIsSearching(false)
+    }, [])
 
     useEffect(() => {
         startTransition(() => {
@@ -42,7 +48,7 @@ export const HomeScreen = () => {
 
     return (
         <>
-            <HealthUnitsMap />
+            <HealthUnitsMap healthUnits={healthUnits}/>
 
             <View style={styles.typeFilter}>
                 <Select
@@ -66,14 +72,13 @@ export const HomeScreen = () => {
                             inputRef={queryInputRef}
                             control={form.control} 
                             onFocus={() => setIsSearching(true)}
-                            onBlur={() => setIsSearching(false)}
                             style={{ width: isSearching ? 268 : '100%' }}
                             placeholder='Buscar Unidade de Sáude'
                         />
 
                         {isSearching && (
                             <Button
-                                onPress={() => queryInputRef.current?.blur()}
+                                onPress={closeSearching}
                                 textStyle={{ color: '#6c757d' }}
                             >
                                 Cancelar
@@ -82,7 +87,7 @@ export const HomeScreen = () => {
                     </View>
 
 
-                    {isSearching && <HealthUnitsList />}
+                    {isSearching && <HealthUnitsList healthUnits={healthUnits}/>}
                     {!isSearching && <ClosestsHealthUnits />}
                 </FormProvider>
             </View>

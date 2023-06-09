@@ -7,7 +7,7 @@ import { addressToString } from "../../../utils/address-to-string";
 import { HighlightText } from "../../highlight-text";
 import FontAwesome from '@expo/vector-icons/FontAwesome5';
 import { styles } from "./style";
-import { HealthUnitType } from "../../../schemas/health-unit";
+import { HealthUnit, HealthUnitType } from "../../../schemas/health-unit";
 import { useNavigation } from "@react-navigation/native";
 
 const ICON_COLOR: Record<HealthUnitType, string> = {
@@ -15,8 +15,11 @@ const ICON_COLOR: Record<HealthUnitType, string> = {
     UPA: 'red'
 }
 
-export const HealthUnitsList: FC = () => {
-    const { healthUnits } = useHealthUnits()
+interface Props{
+    healthUnits: HealthUnit[]
+}
+
+export const HealthUnitsList: FC<Props> = ({ healthUnits }) => {
     const { watch } = useFormContext<HealthUnitFilter>()
 
     const { navigate } = useNavigation()
