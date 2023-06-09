@@ -16,7 +16,7 @@ export const HomeScreen = () => {
     const [ isSearching, setIsSearching ] = useState(false)
     const queryInputRef = useRef<TextInput>(null)
 
-    const { healthUnits, filterHealthUnits } = useHealthUnits()
+    const { healthUnits, closestsHealthUnits, filterHealthUnits } = useHealthUnits()
 
     const form = useForm<HealthUnitFilter>({
         defaultValues: {
@@ -88,7 +88,7 @@ export const HomeScreen = () => {
 
 
                     {isSearching && <HealthUnitsList healthUnits={healthUnits}/>}
-                    {!isSearching && <ClosestsHealthUnits />}
+                    {!isSearching && <ClosestsHealthUnits healthUnits={closestsHealthUnits}/>}
                 </FormProvider>
             </View>
 

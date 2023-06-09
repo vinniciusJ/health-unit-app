@@ -1,6 +1,6 @@
 import { RouteProp } from "@react-navigation/native";
-import { FC, useMemo } from "react";
-import { Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { FC, useCallback, useMemo } from "react";
+import { Image, Linking, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { ParamsList } from "../../../App";
 import { StackScreenProps } from "@react-navigation/stack";
 import { styles } from "./style";
@@ -18,6 +18,8 @@ import { OpeningStatus } from "../../components/health-unit/opening-status";
 import MapView, { Marker } from "react-native-maps";
 import { Button } from "../../components/button";
 import { call } from "../../utils/call";
+import { Geolocation } from "../../schemas/geolocation";
+import { openOnMaps } from "../../utils/open-on-maps";
 
 type Props = StackScreenProps<ParamsList, 'health-unit'>
 
@@ -25,7 +27,18 @@ export const HealthUnit: FC<Props> = ({ navigation, route }) => {
     const { healthUnitID } = route.params
 
     const { healthUnit } = useHealthUnitDetails(healthUnitID)
-    
+
+    const handleMapOpening = useCallback(async () => {
+        const { geolocation } = healthUnit
+
+        try{
+            await openOnMaps(geolocation)
+        }
+        catch(error){
+            console.log(error)
+        }
+    }, [ healthUnit ])
+
     if(!healthUnit){
         return (
             <View>
@@ -33,8 +46,7 @@ export const HealthUnit: FC<Props> = ({ navigation, route }) => {
             </View>
         )
     }
-
-    
+  
     return (
         <>
         <SafeAreaView style={styles.container}>
@@ -102,6 +114,7 @@ export const HealthUnit: FC<Props> = ({ navigation, route }) => {
                         textStyle={{ color: '#FFF' }}
                         style={{ backgroundColor: '#0096c7' }}
                         endIcon={<Feather name="map-pin" size={14} color="#fff" />}
+                        onPress={handleMapOpening}
                     >
                         Abrir no maps
                     </Button>
