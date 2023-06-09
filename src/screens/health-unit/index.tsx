@@ -6,6 +6,8 @@ import { StackScreenProps } from "@react-navigation/stack";
 import { styles } from "./style";
 
 import FontAwesome from '@expo/vector-icons/FontAwesome5'
+import Feather from '@expo/vector-icons/Feather'
+
 import { useHealthUnitDetails } from "../../hooks/use-health-unit-details";
 import { addressToString } from "../../utils/address-to-string";
 import { Address } from "../../schemas/address";
@@ -23,9 +25,17 @@ export const HealthUnit: FC<Props> = ({ navigation, route }) => {
 
     const { healthUnit } = useHealthUnitDetails(healthUnitID)
     
+    if(!healthUnit){
+        return (
+            <View>
+                <Text>Error</Text>
+            </View>
+        )
+    }
 
     
     return (
+        <>
         <SafeAreaView style={styles.container}>
             <View style={styles.goBack}>
                 <TouchableOpacity onPress={() => navigation.navigate('home' as never)}>
@@ -77,7 +87,6 @@ export const HealthUnit: FC<Props> = ({ navigation, route }) => {
                             
                         >
                             <Marker 
-                                
                                 title={healthUnit.name}
                                 description={healthUnit.name}
                                 coordinate={{
@@ -88,14 +97,33 @@ export const HealthUnit: FC<Props> = ({ navigation, route }) => {
                         </MapView>
                     </View>
 
-                    <Button>Abrir no maps</Button>
-                </View>
-
-                <View style={styles.actions}>
-                    <Button width='50%'>Ligar</Button>
-                    <Button width='50%'>Definir como minha UBS</Button>
+                    <Button
+                        textStyle={{ color: '#FFF' }}
+                        style={{ backgroundColor: '#0096c7' }}
+                        endIcon={<Feather name="map-pin" size={14} color="#fff" />}
+                    >
+                        Abrir no maps
+                    </Button>
                 </View>
             </ScrollView>
         </SafeAreaView>
+
+        <View style={styles.actions}>
+            <Button
+                textStyle={{ color: '#38b000' }}
+                startIcon={<Feather name="phone-call" size={14} color="#38b000" />}
+                style={[styles.actionsButtons, styles.phoneButton]}
+            >
+                Ligar
+            </Button>
+            <Button 
+                textStyle={{ color: '#0096c7' }}
+                startIcon={<Feather name="phone-call" size={14} color="#0096c7" />}
+                style={[styles.actionsButtons, styles.myUBSButton]}
+            >
+                Minha UBS
+            </Button>
+        </View>
+        </>
     )
 }

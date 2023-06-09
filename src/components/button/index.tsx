@@ -1,16 +1,25 @@
-import { FC } from 'react'
-import { View, Button as NativeButton, ButtonProps, Touchable, TouchableOpacity } from "react-native"
+import { FC, ReactNode } from 'react'
+import { View, Button as NativeButton, ButtonProps, Touchable, TouchableOpacity, ViewProps, Text, StyleProp, TextStyle } from "react-native"
 import { styles } from './style'
 
-interface Props extends Omit<ButtonProps, 'title'>{
+interface Props extends Omit<ViewProps, 'title'>{
     children: string
-    width?: number | string
+    startIcon?: ReactNode
+    endIcon?: ReactNode
+    textStyle?: StyleProp<TextStyle>
 }
 
-export const Button: FC<Props> = ({ children, width, ...buttonProps }) => {
+export const Button: FC<Props> = ({ children,  startIcon, endIcon, textStyle, ...buttonProps }) => {
     return (
-        <TouchableOpacity style={{...styles.container, width }}>
-            <NativeButton {...buttonProps} color='#FFF' title={children} /> 
+        <TouchableOpacity 
+            {...buttonProps}
+            style={[ styles.container, buttonProps.style ]}
+        >
+            {startIcon}
+
+            <Text style={textStyle}>{children}</Text>
+
+            { endIcon  }
         </TouchableOpacity>
     )
 }

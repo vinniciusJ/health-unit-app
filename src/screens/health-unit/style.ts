@@ -32,11 +32,13 @@ export const styles = StyleSheet.create({
     map: {
         flex: 1,
         // height: 200,
-        borderRadius: 16
+        borderRadius: 16,
+        
     },
     content: {
         display: 'flex',
         gap: 16,
+        marginBottom: 80,
     },
     titleContainer: {
         display: 'flex',
@@ -67,9 +69,29 @@ export const styles = StyleSheet.create({
         width: '75%'
     },
     actions: {
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        left: 0,
+        height: 96,
+        backgroundColor: '#fff',
+        paddingVertical: 16,
+        paddingHorizontal: 24,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         gap: 8
+    },
+    actionsButtons: {
+        width: '50%',
+        fontSize: 12,
+    },
+    phoneButton: {
+        borderWidth: 1,
+        borderColor: '#38b000'
+    },
+    myUBSButton: {
+        borderWidth: 1,
+        borderColor: '#0096c7'
     }
 })
