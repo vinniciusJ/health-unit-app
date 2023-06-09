@@ -20,10 +20,11 @@ import { Button } from "../../components/button";
 import { call } from "../../utils/call";
 import { Geolocation } from "../../schemas/geolocation";
 import { openOnMaps } from "../../utils/open-on-maps";
+import { withAuthentication } from "../../hocs/with-authentication";
 
 type Props = StackScreenProps<ParamsList, 'health-unit'>
 
-export const HealthUnit: FC<Props> = ({ navigation, route }) => {
+const HealthUnitScreen: FC<Props> = ({ navigation, route }) => {
     const { healthUnitID } = route.params
 
     const { healthUnit } = useHealthUnitDetails(healthUnitID)
@@ -143,3 +144,5 @@ export const HealthUnit: FC<Props> = ({ navigation, route }) => {
         </>
     )
 }
+
+export default HealthUnitScreen

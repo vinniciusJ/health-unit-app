@@ -4,9 +4,9 @@ import { Text } from 'react-native'
 import { Suspense } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { HomeScreen } from './src/screens/home'
+import HomeScreen from './src/screens/home'
 import { LoginScreen } from './src/screens/login'
-import { HealthUnit } from './src/screens/health-unit'
+import HealthUnitScreen from './src/screens/health-unit'
 
 export type ParamsList = {
 	login: undefined
@@ -21,13 +21,13 @@ export default function App() {
 		<RecoilRoot>
 			<Suspense fallback={<Text>Loading</Text>}>
 				<NavigationContainer >
-					<Stack.Navigator initialRouteName='login'>
+					<Stack.Navigator initialRouteName='home'>
 						<Stack.Screen options={{ header: () => null }} name="home" component={HomeScreen} />
 						<Stack.Screen options={{ header: () => null }} name="login" component={LoginScreen} />
 						<Stack.Screen 
 							options={{ header: () => null }} 
 							name="health-unit" 
-							component={HealthUnit}
+							component={HealthUnitScreen}
 							initialParams={{ healthUnitID: 0 }}
 						/>
 					</Stack.Navigator>

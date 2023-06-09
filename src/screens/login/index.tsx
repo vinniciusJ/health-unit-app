@@ -45,7 +45,7 @@ export const LoginScreen = () => {
                 />
             </View>
 
-            <Button  width={'80%'} onPress={handleSubmit(signIn)}>
+            <Button  onPress={handleSubmit(signIn)}>
                 Login
             </Button>
         </SafeAreaView>

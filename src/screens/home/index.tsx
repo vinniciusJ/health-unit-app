@@ -10,9 +10,9 @@ import { HealthUnitFilter } from '../../interfaces/health-unit-filter'
 import { useHealthUnits } from '../../hooks/use-health-units'
 import { Select } from '../../components/select'
 import { Button } from '../../components/button'
+import { withAuthentication } from '../../hocs/with-authentication'
 
-
-export const HomeScreen = () => {
+const HomeScreen = () => {
     const [ isSearching, setIsSearching ] = useState(false)
     const queryInputRef = useRef<TextInput>(null)
 
@@ -23,6 +23,8 @@ export const HomeScreen = () => {
             query: '', type: ''
         }
     })
+
+    console.log('oi')
 
     const [query, type] = form.watch(['query', 'type'])
 
@@ -95,3 +97,5 @@ export const HomeScreen = () => {
         </>
     )
 }
+
+export default HomeScreen
