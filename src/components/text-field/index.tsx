@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, RefObject } from 'react'
 import { Text, TextInputProps, TextInput, View, KeyboardTypeOptions } from "react-native"
 import { styles } from './style'
 import { Control, Controller, Path } from 'react-hook-form'
@@ -11,6 +11,7 @@ interface Props<T extends object> extends Omit<TextInputProps, 'name'>{
 	required?: boolean
 	name: Path<T>
 	type: Type
+	inputRef?: RefObject<TextInput>
 }
 
 const KEYBOARD_TYPE: Record<Type, KeyboardTypeOptions> = {
@@ -20,7 +21,7 @@ const KEYBOARD_TYPE: Record<Type, KeyboardTypeOptions> = {
 	text: 'ascii-capable'
 }
 
-export function TextField<T extends object>({ control, required, name, type, label, ...inputProps }: Props<T>) {
+export function TextField<T extends object>({ control, required, inputRef, name, type, label, ...inputProps }: Props<T>) {
     return (
         <Controller 
 			control={control}
@@ -28,13 +29,15 @@ export function TextField<T extends object>({ control, required, name, type, lab
 			render={({ field }) =>  (
 				<View style={styles.container}>
 					{label && <Text>{label}</Text>}
-					<TextInput 
+					<TextInput
 						{...inputProps}
+						{...(inputRef && { ref: inputRef })}
 						secureTextEntry={type === 'password'}
 						keyboardType={KEYBOARD_TYPE[type]}
-						style={styles.input}
+						style={[styles.input, inputProps.style]}
 						onChangeText={field.onChange}
             			value={field.value}
+						
 					/>
 				</View>
 			)}

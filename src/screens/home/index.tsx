@@ -1,18 +1,20 @@
-import { Button, ScrollView, Text, View } from 'react-native'
+import {  ScrollView, Text, TextInput, View } from 'react-native'
 import { HealthUnitsMap } from "../../components/map"
 import { styles } from './style'
 import { useForm, FormProvider } from 'react-hook-form'
 import { TextField } from '../../components/text-field'
-import { startTransition, useEffect, useState } from 'react'
+import { startTransition, useEffect, useRef, useState } from 'react'
 import { ClosestsHealthUnits } from '../../components/health-unit/closests'
 import { HealthUnitsList } from '../../components/health-unit/list'
 import { HealthUnitFilter } from '../../interfaces/health-unit-filter'
 import { useHealthUnits } from '../../hooks/use-health-units'
 import { Select } from '../../components/select'
+import { Button } from '../../components/button'
 
 
 export const HomeScreen = () => {
     const [ isSearching, setIsSearching ] = useState(false)
+    const queryInputRef = useRef<TextInput>(null)
 
     const { filterHealthUnits } = useHealthUnits()
 
@@ -57,14 +59,27 @@ export const HomeScreen = () => {
 
             <View style={styles[isSearching ? 'searching' : 'container']}>
                 <FormProvider {...form}>
-                    <TextField
-                        name='query' 
-                        type='text'
-                        control={form.control} 
-                        onFocus={() => setIsSearching(true)}
-                        // onBlur={() => setIsSearching(false)}
-                        placeholder='Buscar Unidade de Sáude'
-                    />
+                    <View {...(isSearching && { style: styles.textfield })}>
+                        <TextField
+                            name='query' 
+                            type='text'
+                            inputRef={queryInputRef}
+                            control={form.control} 
+                            onFocus={() => setIsSearching(true)}
+                            onBlur={() => setIsSearching(false)}
+                            style={{ width: isSearching ? 268 : '100%' }}
+                            placeholder='Buscar Unidade de Sáude'
+                        />
+
+                        {isSearching && (
+                            <Button
+                                onPress={() => queryInputRef.current?.blur()}
+                                textStyle={{ color: '#6c757d' }}
+                            >
+                                Cancelar
+                            </Button>
+                        )}
+                    </View>
 
 
                     {isSearching && <HealthUnitsList />}

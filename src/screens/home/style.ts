@@ -44,5 +44,13 @@ export const styles = StyleSheet.create({
     },
     select: {
         borderRadius: 16
+    },
+    textfield: {
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+        // gap: 8
     }
 })

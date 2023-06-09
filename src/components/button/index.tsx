@@ -1,8 +1,8 @@
 import { FC, ReactNode } from 'react'
-import { View, Button as NativeButton, ButtonProps, Touchable, TouchableOpacity, ViewProps, Text, StyleProp, TextStyle } from "react-native"
+import {  TouchableOpacity, Text, StyleProp, TextStyle, TouchableOpacityProps } from "react-native"
 import { styles } from './style'
 
-interface Props extends Omit<ViewProps, 'title'>{
+interface Props extends Omit<TouchableOpacityProps, 'title'>{
     children: string
     startIcon?: ReactNode
     endIcon?: ReactNode
