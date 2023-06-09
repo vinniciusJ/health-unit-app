@@ -17,6 +17,7 @@ import { OPENING_LABELS } from "../../utils/consts";
 import { OpeningStatus } from "../../components/health-unit/opening-status";
 import MapView, { Marker } from "react-native-maps";
 import { Button } from "../../components/button";
+import { call } from "../../utils/call";
 
 type Props = StackScreenProps<ParamsList, 'health-unit'>
 
@@ -113,14 +114,16 @@ export const HealthUnit: FC<Props> = ({ navigation, route }) => {
                 textStyle={{ color: '#38b000' }}
                 startIcon={<Feather name="phone-call" size={14} color="#38b000" />}
                 style={[styles.actionsButtons, styles.phoneButton]}
+                onPress={() => call(healthUnit.phone)}
             >
                 Ligar
             </Button>
             <Button 
                 textStyle={{ color: '#0096c7' }}
-                startIcon={<Feather name="phone-call" size={14} color="#0096c7" />}
+                startIcon={<FontAwesome name="hospital" size={14} color="#0096c7" />}
                 style={[styles.actionsButtons, styles.myUBSButton]}
             >
+
                 Minha UBS
             </Button>
         </View>
