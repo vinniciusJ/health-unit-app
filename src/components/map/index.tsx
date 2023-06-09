@@ -6,7 +6,7 @@ import { useHealthUnits } from '../../hooks/use-health-units'
 import { useCallback, useRef, useState } from 'react'
 import { getZoomLevel } from '../../utils/get-zoom-level'
 
-export const Map = () => {
+export const HealthUnitsMap = () => {
     const userLocation = useUserLocation()
     const { healthUnits } = useHealthUnits()
   

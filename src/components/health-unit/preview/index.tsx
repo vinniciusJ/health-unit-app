@@ -6,6 +6,8 @@ import { isHealthUnitOpened } from "../../../utils/is-health-unit-opened";
 import { OpeningHours } from "../../../interfaces/opening-hours";
 import { styles } from "./style";
 import { useNavigation } from "@react-navigation/native";
+import { OPENING_LABELS } from "../../../utils/consts";
+import { OpeningStatus } from "../opening-status";
 
 interface Props{
     id: number
@@ -14,12 +16,10 @@ interface Props{
     openingHours: OpeningHours
 }
 
-const OPENING_LABELS = ['Fechado', 'Aberto'] as const
+
 
 export const HealthUnitPreview: FC<Props> = ({ id, name, address, openingHours }) => {
     const { navigate } = useNavigation()
-
-    const isOpened = useMemo(() => isHealthUnitOpened(openingHours), [openingHours])
 
     return (
         <TouchableOpacity onPress={() => navigate('health-unit' as never, { healthUnitID: id } as never)}>
@@ -30,11 +30,8 @@ export const HealthUnitPreview: FC<Props> = ({ id, name, address, openingHours }
                 <Text numberOfLines={2} ellipsizeMode="tail">
                     {addressToString(address)}
                 </Text>
-                <View style={styles[isOpened ? 'opened' : 'closed']}>
-                    <Text style={styles[isOpened ? 'openedText' : 'closedText']}>
-                        {OPENING_LABELS[Number(isOpened)]}
-                    </Text>
-                </View>
+                
+                <OpeningStatus openingHours={openingHours} />
             </View>
         </TouchableOpacity>
     )

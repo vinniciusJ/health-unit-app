@@ -18,4 +18,8 @@ export class HealthUnitsService {
     getClosests(geolocation: Geolocation): Promise<AxiosResponse<HealthUnit[]>> {
         return healthUnitAPI.get<HealthUnit[]>('/health-unit/closests', { params: { ...geolocation, radius: RADIUS } })
     }
+
+    getByID(id: number): Promise<AxiosResponse<HealthUnit>> {
+        return healthUnitAPI.get<HealthUnit>(`/health-unit/${id}`)
+    }
 }

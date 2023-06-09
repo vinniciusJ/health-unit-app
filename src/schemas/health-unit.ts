@@ -12,6 +12,7 @@ export const healthUnitSchema = z.object({
     name: z.string(),
     type: z.enum(HEALTH_UNIT_TYPES),
     phone: z.string(),
+    imageURL: z.string(),
     openingHours: z.string().refine(data => OPENING_HOURS_REGEX.test(data)),
     addressId: z.number(),
     geolocationId: z.number(),

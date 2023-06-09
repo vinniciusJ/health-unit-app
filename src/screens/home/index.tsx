@@ -1,5 +1,5 @@
 import { Button, ScrollView, Text, View } from 'react-native'
-import { Map } from "../../components/map"
+import { HealthUnitsMap } from "../../components/map"
 import { styles } from './style'
 import { useForm, FormProvider } from 'react-hook-form'
 import { TextField } from '../../components/text-field'
@@ -40,7 +40,7 @@ export const HomeScreen = () => {
 
     return (
         <>
-            <Map />
+            <HealthUnitsMap />
 
             <View style={styles.typeFilter}>
                 <Select
@@ -62,7 +62,7 @@ export const HomeScreen = () => {
                         type='text'
                         control={form.control} 
                         onFocus={() => setIsSearching(true)}
-                        onBlur={() => setIsSearching(false)}
+                        // onBlur={() => setIsSearching(false)}
                         placeholder='Buscar Unidade de Sáude'
                     />
 

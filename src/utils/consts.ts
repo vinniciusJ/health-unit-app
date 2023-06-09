@@ -1,0 +1,1 @@
+export const OPENING_LABELS = ['Fechado', 'Aberto'] as const
