@@ -1,5 +1,5 @@
 import { AxiosError } from "axios"
-import { useCallback } from "react"
+import { useCallback, useEffect, useMemo } from "react"
 import { AuthService } from "../services/auth"
 import { Credentials } from "../schemas/credentials"
 import { healthUnitAPI } from "../services/api"
@@ -7,11 +7,19 @@ import { AxiosRequestHeaders } from "axios"
 import { useNavigation } from "@react-navigation/native"
 import { useRecoilState, useRecoilValue } from "recoil"
 import { setAuthorizationTokenInAPI } from "../utils/set-token-in-api"
-import { authSelector } from "../contexts/auth"
+import { authAtom } from "../contexts/auth"
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import { userSessionSelector } from "../contexts/user-session"
+
 
 export const useAuth = () => {
-    const [ authToken, setToken ] = useRecoilState(authSelector)
+    const [ authToken, setAuthToken ] = useRecoilState(authAtom)
+    const userSession = useRecoilValue(userSessionSelector)
 
+    const isSessionExpired = useMemo(() => {
+        return !userSession || userSession.exp < (new Date().getTime() + 1) / 1000
+    }, [ userSession ])
+    
     const navigation = useNavigation()
 
     const login = useCallback(async (credentials: Credentials) => {
@@ -19,7 +27,7 @@ export const useAuth = () => {
             const response = await AuthService.signIn(credentials)
 
             if(response.status === 200){
-                setToken(response.data.token)
+                setAuthToken(response.data.token)
                 setAuthorizationTokenInAPI(response.data.token)
 
                 navigation.navigate('home' as never)
@@ -30,8 +38,12 @@ export const useAuth = () => {
         }
     }, [])
 
+    
     return {
         signIn: login,
-        authToken
+        setAuthToken,
+        authToken,
+        isSessionExpired,
+        userSession
     }
 }

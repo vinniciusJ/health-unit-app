@@ -11,20 +11,20 @@ import { useHealthUnits } from '../../hooks/use-health-units'
 import { Select } from '../../components/select'
 import { Button } from '../../components/button'
 import { withAuthentication } from '../../hocs/with-authentication'
+import { useAuth } from '../../hooks/use-auth'
 
 const HomeScreen = () => {
-    const [ isSearching, setIsSearching ] = useState(false)
     const queryInputRef = useRef<TextInput>(null)
+    const [ isSearching, setIsSearching ] = useState(false)
 
     const { healthUnits, closestsHealthUnits, filterHealthUnits } = useHealthUnits()
+    const { userSession } = useAuth()
 
     const form = useForm<HealthUnitFilter>({
         defaultValues: {
             query: '', type: ''
         }
     })
-
-    console.log('oi')
 
     const [query, type] = form.watch(['query', 'type'])
 
@@ -47,6 +47,7 @@ const HomeScreen = () => {
     useEffect(() => {
         filterHealthUnits({ type })
     }, [ type ])
+
 
     return (
         <>
@@ -98,4 +99,4 @@ const HomeScreen = () => {
     )
 }
 
-export default HomeScreen
+export default withAuthentication(HomeScreen)
