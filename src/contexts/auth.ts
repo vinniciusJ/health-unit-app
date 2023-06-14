@@ -1,18 +1,14 @@
-import { atom, selector } from "recoil";
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { getUserSession } from "../utils/get-user-session";
-import { UserSession } from "../interfaces/user-session";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {  selector } from "recoil";
 import { AUTH_TOKEN } from "../utils/consts";
 
-export const tokenSelector = selector({
-    key: 'auth-token-selector',
+export const authSelector = selector<string>({
+    key: 'auth-selector',
     get: async () => {
         try{
-            const response = await getUserSession()
+            console.log(String(await AsyncStorage.getItem(AUTH_TOKEN))) 
 
-            if(response?.token){
-                return response.token
-            }
+            return ''
         }
         catch(error){
             console.log(error)
@@ -20,30 +16,8 @@ export const tokenSelector = selector({
 
         return ''
     },
-    set: ({ set }, newToken) => {
-        AsyncStorage.setItem(AUTH_TOKEN, String(newToken))
+    set: ({ set }, authToken) => {
+        AsyncStorage.setItem(AUTH_TOKEN, String(authToken))
     }
 })
 
-export const userSessionSelector = selector({
-    key: 'user-session-selector',
-    get: async () => {
-        try{
-            const userSession = await getUserSession()
-
-            if(userSession){
-                return userSession
-            }
-        }
-        catch(error){
-            console.log(error)
-        }
-
-        return null
-    }
-})
-
-export const userSessionAtom = atom<UserSession | null>({
-    key: 'user-session-atom',
-    default: userSessionSelector
-})

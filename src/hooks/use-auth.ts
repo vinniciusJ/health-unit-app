@@ -6,14 +6,11 @@ import { healthUnitAPI } from "../services/api"
 import { AxiosRequestHeaders } from "axios"
 import { useNavigation } from "@react-navigation/native"
 import { useRecoilState, useRecoilValue } from "recoil"
-import { tokenSelector, userSessionAtom } from "../contexts/auth"
 import { setAuthorizationTokenInAPI } from "../utils/set-token-in-api"
+import { authSelector } from "../contexts/auth"
 
 export const useAuth = () => {
-    const [ token, setToken ] = useRecoilState(tokenSelector)
-    const userSession = useRecoilValue(userSessionAtom)
-
-    const isSessionExpired = !userSession || userSession.exp < (new Date().getTime() + 1) / 1000
+    const [ authToken, setToken ] = useRecoilState(authSelector)
 
     const navigation = useNavigation()
 
@@ -33,12 +30,8 @@ export const useAuth = () => {
         }
     }, [])
 
-    const logout = useCallback(() => setToken(''), [])
-
     return {
         signIn: login,
-        logout,
-        isSessionExpired,
-        token
+        authToken
     }
 }

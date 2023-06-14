@@ -21,7 +21,7 @@ export default function App() {
 		<RecoilRoot>
 			<Suspense fallback={<Text>Loading</Text>}>
 				<NavigationContainer >
-					<Stack.Navigator initialRouteName='home'>
+					<Stack.Navigator initialRouteName='login'>
 						<Stack.Screen options={{ header: () => null }} name="home" component={HomeScreen} />
 						<Stack.Screen options={{ header: () => null }} name="login" component={LoginScreen} />
 						<Stack.Screen 
