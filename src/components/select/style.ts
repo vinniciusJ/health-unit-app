@@ -2,7 +2,6 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
     container: {
-        width: '100%',
         backgroundColor: '#FFF',
         borderWidth: 1,
         borderColor: '#ccc',
@@ -10,7 +9,9 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 8,
         paddingVertical: 4,
         color: '#ccc',
-      
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     select: {
         paddingRight: 24 ,

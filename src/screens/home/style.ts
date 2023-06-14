@@ -35,12 +35,15 @@ export const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'space-between'
     },
-    typeFilter: {
+    floatingOptions: {
         position: 'absolute',
         top: 64,
-        right: 32,
-        
+        left: 16,
+        right: 16,
         zIndex: 999,
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     },
     select: {
         borderRadius: 16
@@ -52,5 +55,10 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center'
         // gap: 8
+    },
+    menuButton: {
+        backgroundColor: '#FFF',
+        padding: 8,
+        borderRadius: 64
     }
 })

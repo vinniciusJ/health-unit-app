@@ -19,11 +19,11 @@ export const withAuthentication = <P extends object>(Component: FunctionComponen
 				})()
 			}, [])
 
-            useEffect(() => {
-                if(isSessionExpired){
-                    navigate('login' as never)
-                }
-            }, [ isSessionExpired ])
+            // useEffect(() => {
+            //     if(isSessionExpired){
+            //         navigate('login' as never)
+            //     }
+            // }, [ isSessionExpired ])
 
 			return <Component {...(props as P)} />
 		}

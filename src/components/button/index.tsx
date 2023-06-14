@@ -3,7 +3,7 @@ import {  TouchableOpacity, Text, StyleProp, TextStyle, TouchableOpacityProps } 
 import { styles } from './style'
 
 interface Props extends Omit<TouchableOpacityProps, 'title'>{
-    children: string
+    children?: string
     startIcon?: ReactNode
     endIcon?: ReactNode
     textStyle?: StyleProp<TextStyle>
@@ -17,7 +17,9 @@ export const Button: FC<Props> = ({ children,  startIcon, endIcon, textStyle, ..
         >
             {startIcon}
 
-            <Text style={textStyle}>{children}</Text>
+            { children && (
+                <Text style={textStyle}>{children}</Text>
+            ) }
 
             { endIcon  }
         </TouchableOpacity>

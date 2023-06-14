@@ -13,12 +13,16 @@ import { Button } from '../../components/button'
 import { withAuthentication } from '../../hocs/with-authentication'
 import { useAuth } from '../../hooks/use-auth'
 
+import Feather from '@expo/vector-icons/Feather'
+import { Menu } from '../../components/menu'
+import { useMenu } from '../../hooks/use-menu'
+
 const HomeScreen = () => {
     const queryInputRef = useRef<TextInput>(null)
     const [ isSearching, setIsSearching ] = useState(false)
 
     const { healthUnits, closestsHealthUnits, filterHealthUnits } = useHealthUnits()
-    const { userSession } = useAuth()
+    const { toggleMenu } = useMenu()
 
     const form = useForm<HealthUnitFilter>({
         defaultValues: {
@@ -51,9 +55,13 @@ const HomeScreen = () => {
 
     return (
         <>
-            <HealthUnitsMap healthUnits={healthUnits}/>
+            <View style={styles.floatingOptions}>
+                <Button 
+                    onPress={toggleMenu}
+                    style={styles.menuButton}
+                    startIcon={<Feather name='menu' size={20} color='black'/>}
+                />
 
-            <View style={styles.typeFilter}>
                 <Select
                     name='type'
                     control={form.control}
@@ -65,6 +73,10 @@ const HomeScreen = () => {
                     ]}
                 />
             </View>
+
+            <Menu />
+
+            <HealthUnitsMap healthUnits={healthUnits}/>
 
             <View style={styles[isSearching ? 'searching' : 'container']}>
                 <FormProvider {...form}>
