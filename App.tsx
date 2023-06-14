@@ -1,5 +1,5 @@
 import { RecoilRoot } from 'recoil'
-import { HealthUnitsMap } from './src/components/map'
+import { HealthUnitsMap } from './src/components/health-unit/map'
 import { Text } from 'react-native'
 import { Suspense } from 'react'
 import { NavigationContainer } from '@react-navigation/native'

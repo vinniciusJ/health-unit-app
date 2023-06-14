@@ -1,5 +1,5 @@
 import {  ScrollView, Text, TextInput, View } from 'react-native'
-import { HealthUnitsMap } from "../../components/map"
+import { HealthUnitsMap } from "../../components/health-unit/map"
 import { styles } from './style'
 import { useForm, FormProvider } from 'react-hook-form'
 import { TextField } from '../../components/text-field'

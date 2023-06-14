@@ -11,7 +11,8 @@ export const styles = StyleSheet.create({
         // border: '1px solid #ccc'
         borderWidth: 1,
         borderRadius: 4,
-        borderColor: '#ccc'
+        borderColor: '#ccc',
+        backgroundColor: '#f8f9fa'
     },
     opened: {
         borderColor: 'green',
