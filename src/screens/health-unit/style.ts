@@ -35,6 +35,13 @@ export const styles = StyleSheet.create({
         borderRadius: 16,
         
     },
+    openOnMapButton: {
+        backgroundColor: '#0096c7',
+        paddingVertical: 12,
+    },
+    openOnMapLabel: {
+        color: '#FFF'
+    },
     content: {
         display: 'flex',
         gap: 16,
@@ -44,10 +51,29 @@ export const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row'
     },
+    header: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 24,
+    },
+    yourUBSTag: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 1,
+        maxHeight: 28,
+        paddingHorizontal: 24,
+        borderRadius: 16,
+        borderColor: '#0096c7'
+    },
+    yourUBSLabel: {
+        color: '#0096c7'
+    },
     title: {
         fontSize: 24, 
         fontWeight: 'bold',
-        marginBottom: 24,
+        
     },
     info: {
         display: 'flex',
@@ -80,18 +106,22 @@ export const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        gap: 8
+        gap: 8,
+
     },
     actionsButtons: {
         width: '50%',
-        fontSize: 12,
+        height: 48,
     },
     phoneButton: {
         borderWidth: 1,
         borderColor: '#38b000'
     },
-    myUBSButton: {
+    addToMyUBS: {
         borderWidth: 1,
         borderColor: '#0096c7'
+    },
+    myUBS: {
+        backgroundColor: '#0096c7'
     }
 })

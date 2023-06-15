@@ -16,13 +16,18 @@ import { Button } from "../../components/button";
 import { call } from "../../utils/call";
 import { openOnMaps } from "../../utils/open-on-maps";
 import { withAuthentication } from "../../hocs/with-authentication";
+import { useAuth } from "../../hooks/use-auth";
+import { useUserSession } from "../../hooks/use-user-session";
 
 type Props = StackScreenProps<ParamsList, 'health-unit'>
 
 const HealthUnitScreen: FC<Props> = ({ navigation, route }) => {
     const { healthUnitID } = route.params
 
+    const { user } = useUserSession()
     const { healthUnit } = useHealthUnitDetails(healthUnitID)
+
+    const isUserUBS = useMemo(() => user.healthUnitId === healthUnitID, [])
 
     const handleMapOpening = useCallback(async () => {
         const { geolocation } = healthUnit
@@ -64,7 +69,15 @@ const HealthUnitScreen: FC<Props> = ({ navigation, route }) => {
                     resizeMode="cover"
                 />
 
-                <Text style={styles.title}>{healthUnit?.name}</Text>
+                <View style={styles.header}>
+                    <Text style={styles.title}>{healthUnit?.name}</Text>
+
+                    {isUserUBS && (
+                        <View style={styles.yourUBSTag}>
+                            <Text style={styles.yourUBSLabel}>Sua UBS</Text>
+                        </View>
+                    )}
+                </View>
 
                 <View style={styles.info}>
                     <Text style={styles.infoHeader}>Horário de atendimento</Text>
@@ -107,8 +120,8 @@ const HealthUnitScreen: FC<Props> = ({ navigation, route }) => {
                     </View>
 
                     <Button
-                        textStyle={{ color: '#FFF' }}
-                        style={{ backgroundColor: '#0096c7' }}
+                        textStyle={styles.openOnMapLabel}
+                        style={styles.openOnMapButton}
                         endIcon={<Feather name="map-pin" size={14} color="#fff" />}
                         onPress={handleMapOpening}
                     >
@@ -127,14 +140,16 @@ const HealthUnitScreen: FC<Props> = ({ navigation, route }) => {
             >
                 Ligar
             </Button>
+            
             <Button 
-                textStyle={{ color: '#0096c7' }}
-                startIcon={<FontAwesome name="hospital" size={14} color="#0096c7" />}
-                style={[styles.actionsButtons, styles.myUBSButton]}
+                textStyle={{ color: isUserUBS ? '#fff': '#0096c7' }}
+                disabled={isUserUBS}
+                startIcon={<FontAwesome name="hospital" size={14} color={isUserUBS ? '#fff': '#0096c7'} />}
+                style={[styles.actionsButtons, styles.addToMyUBS, (isUserUBS ? styles.myUBS : {})]}
             >
-
                 Minha UBS
             </Button>
+            
         </View>
         </>
     )
