@@ -5,6 +5,10 @@ import { getHoursFromOpeningHours } from "./get-hours-from-opening-hours"
 export const isHealthUnitOpened = (openingHours: OpeningHours) => {
     const [ opening, closing ] = getHoursFromOpeningHours(openingHours)
 
+    if(openingHours.includes('24')){
+        return true
+    }
+
     const [ openingTime, closingTime, currentTime ] = [
         parse(opening, 'HH:mm', new Date()),
         parse(closing, 'HH:mm', new Date()),

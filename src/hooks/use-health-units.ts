@@ -1,11 +1,11 @@
 import { useRecoilValue, useSetRecoilState } from "recoil"
 import { healhtUnitFilter, healthUnitsAtom } from "../contexts/health-units"
-import { useCallback } from "react"
+import { useCallback, useEffect } from "react"
 import { HealthUnitFilter } from "../interfaces/health-unit-filter"
 import { useUserLocation } from "./use-user-location"
 import { closestsHealthUnitsAtom } from "../contexts/closests-health-units"
 
-export const useHealthUnits = () => {
+export const useHealthUnits = (filter?: HealthUnitFilter) => {
     const userLocation = useUserLocation()
 
     const setHealthUnitsFilter = useSetRecoilState(healhtUnitFilter)
@@ -14,6 +14,12 @@ export const useHealthUnits = () => {
 
     const filterHealthUnits = useCallback((filter: HealthUnitFilter) => setHealthUnitsFilter(filter), [])
     
+    useEffect(() => {
+        if(filter){
+            filterHealthUnits(filter)
+        }
+    }, [ filter ])
+
     return {    
         healthUnits,
         filterHealthUnits,

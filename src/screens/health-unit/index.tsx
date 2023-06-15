@@ -18,16 +18,24 @@ import { openOnMaps } from "../../utils/open-on-maps";
 import { withAuthentication } from "../../hocs/with-authentication";
 import { useAuth } from "../../hooks/use-auth";
 import { useUserSession } from "../../hooks/use-user-session";
+import { UsersService } from "../../services/user";
+import { useModal } from "../../hooks/use-modal";
+import { Modal } from "../../components/modal";
+import { useUser } from "../../hooks/use-user";
 
 type Props = StackScreenProps<ParamsList, 'health-unit'>
+
 
 const HealthUnitScreen: FC<Props> = ({ navigation, route }) => {
     const { healthUnitID } = route.params
 
-    const { user } = useUserSession()
+    const { user, defineUserUBS } = useUser()
     const { healthUnit } = useHealthUnitDetails(healthUnitID)
 
-    const isUserUBS = useMemo(() => user.healthUnitId === healthUnitID, [])
+    const modalRef = useModal()
+
+    const isUserUBS = useMemo(() => user.healthUnitId === healthUnitID, [ user ])
+    const isUPA = useMemo(() => healthUnit?.type == 'UPA', [ healthUnit ])
 
     const handleMapOpening = useCallback(async () => {
         const { geolocation } = healthUnit
@@ -40,6 +48,7 @@ const HealthUnitScreen: FC<Props> = ({ navigation, route }) => {
         }
     }, [ healthUnit ])
 
+
     if(!healthUnit){
         return (
             <View>
@@ -50,107 +59,121 @@ const HealthUnitScreen: FC<Props> = ({ navigation, route }) => {
   
     return (
         <>
-        <SafeAreaView style={styles.container}>
-            <View style={styles.goBack}>
-                <TouchableOpacity onPress={() => navigation.navigate('home' as never)}>
-                    <FontAwesome name="arrow-left" size={24} color="black" />
-                </TouchableOpacity>
+            <SafeAreaView style={styles.container}>
+                <View style={styles.goBack}>
+                    <TouchableOpacity onPress={() => navigation.navigate('home' as never)}>
+                        <FontAwesome name="arrow-left" size={24} color="black" />
+                    </TouchableOpacity>
 
-                <Text style={styles.goBackTitle}>Voltar ao mapa</Text>
-            </View>
-
-            <ScrollView 
-                style={styles.content}
-                showsVerticalScrollIndicator={false}
-            >  
-                <Image 
-                    source={{ uri: String(healthUnit?.imageURL) }} 
-                    style={styles.image}
-                    resizeMode="cover"
-                />
-
-                <View style={styles.header}>
-                    <Text style={styles.title}>{healthUnit?.name}</Text>
-
-                    {isUserUBS && (
-                        <View style={styles.yourUBSTag}>
-                            <Text style={styles.yourUBSLabel}>Sua UBS</Text>
-                        </View>
-                    )}
+                    <Text style={styles.goBackTitle}>Voltar ao mapa</Text>
                 </View>
 
-                <View style={styles.info}>
-                    <Text style={styles.infoHeader}>Horário de atendimento</Text>
+                <ScrollView 
+                    style={styles.content}
+                    showsVerticalScrollIndicator={false}
+                >  
+                    <Image 
+                        source={{ uri: String(healthUnit?.imageURL) }} 
+                        style={styles.image}
+                        resizeMode="cover"
+                    />
 
-                    <View style={styles.hoursContainer}>
-                        <Text style={styles.hours}>Horário: {healthUnit.openingHours}</Text> 
-                        
-                        <OpeningStatus 
-                            openingHours={healthUnit.openingHours} 
-                        />
+                    <View style={styles.header}>
+                        <Text style={styles.title}>{healthUnit?.name}</Text>
+
+                        {isUserUBS && (
+                            <View style={styles.yourUBSTag}>
+                                <Text style={styles.yourUBSLabel}>Sua UBS</Text>
+                            </View>
+                        )}
                     </View>
-                </View>                
-                
-                <View style={styles.info}>
-                    <Text style={styles.infoHeader}>Endreço</Text>
-                    <Text>{addressToString(healthUnit.address)}</Text>
 
-                    <View style={styles.mapContainer}>
-                        <MapView
-                            style={styles.map}
-                            zoomEnabled={false}
-                            scrollEnabled={false}
-                            initialRegion={{
-                                latitude: healthUnit.geolocation.lat,
-                                longitude: healthUnit.geolocation.long,
-                                latitudeDelta: 0.01,
-                                longitudeDelta: 0.01,
-                            }}
+                    <View style={styles.info}>
+                        <Text style={styles.infoHeader}>Horário de atendimento</Text>
+
+                        <View style={styles.hoursContainer}>
+                            <Text style={styles.hours}>Horário: {healthUnit.openingHours}</Text> 
                             
-                        >
-                            <Marker 
-                                title={healthUnit.name}
-                                description={healthUnit.name}
-                                coordinate={{
+                            <OpeningStatus 
+                                openingHours={healthUnit.openingHours} 
+                            />
+                        </View>
+                    </View>                
+                    
+                    <View style={styles.info}>
+                        <Text style={styles.infoHeader}>Endreço</Text>
+                        <Text>{addressToString(healthUnit.address)}</Text>
+
+                        <View style={styles.mapContainer}>
+                            <MapView
+                                style={styles.map}
+                                zoomEnabled={false}
+                                scrollEnabled={false}
+                                initialRegion={{
                                     latitude: healthUnit.geolocation.lat,
                                     longitude: healthUnit.geolocation.long,
-                                }} 
-                            /> 
-                        </MapView>
+                                    latitudeDelta: 0.01,
+                                    longitudeDelta: 0.01,
+                                }}
+                                
+                            >
+                                <Marker 
+                                    title={healthUnit.name}
+                                    description={healthUnit.name}
+                                    coordinate={{
+                                        latitude: healthUnit.geolocation.lat,
+                                        longitude: healthUnit.geolocation.long,
+                                    }} 
+                                /> 
+                            </MapView>
+                        </View>
+
+                        <Button
+                            textStyle={styles.openOnMapLabel}
+                            style={styles.openOnMapButton}
+                            endIcon={<Feather name="map-pin" size={14} color="#fff" />}
+                            onPress={handleMapOpening}
+                        >
+                            Abrir no maps
+                        </Button>
                     </View>
+                </ScrollView>
+            </SafeAreaView>
 
-                    <Button
-                        textStyle={styles.openOnMapLabel}
-                        style={styles.openOnMapButton}
-                        endIcon={<Feather name="map-pin" size={14} color="#fff" />}
-                        onPress={handleMapOpening}
+            <View style={styles.actions}>
+                <Button
+                    textStyle={{ color: '#38b000' }}
+                    startIcon={<Feather name="phone-call" size={14} color="#38b000" />}
+                    style={[styles.actionsButtons, styles.phoneButton, {...(isUPA && { width: '100%' })}]}
+                    onPress={() => call(healthUnit.phone)}
+                >
+                    Ligar
+                </Button>
+                
+                { !isUPA && (
+                    <Button 
+                        textStyle={{ color: isUserUBS ? '#fff': '#0096c7' }}
+                        disabled={isUserUBS}
+                        onPress={() => modalRef.current?.open()}
+                        startIcon={<FontAwesome name="hospital" size={14} color={isUserUBS ? '#fff': '#0096c7'} />}
+                        style={[styles.actionsButtons, styles.addToMyUBS, (isUserUBS ? styles.myUBS : {})]}
                     >
-                        Abrir no maps
+                        Minha UBS
                     </Button>
-                </View>
-            </ScrollView>
-        </SafeAreaView>
+                ) }
+                
+            </View>
 
-        <View style={styles.actions}>
-            <Button
-                textStyle={{ color: '#38b000' }}
-                startIcon={<Feather name="phone-call" size={14} color="#38b000" />}
-                style={[styles.actionsButtons, styles.phoneButton]}
-                onPress={() => call(healthUnit.phone)}
+            <Modal
+                ref={modalRef}
+                title="Definir minha UBS"
+                onSucces={() => defineUserUBS(healthUnitID)}
             >
-                Ligar
-            </Button>
-            
-            <Button 
-                textStyle={{ color: isUserUBS ? '#fff': '#0096c7' }}
-                disabled={isUserUBS}
-                startIcon={<FontAwesome name="hospital" size={14} color={isUserUBS ? '#fff': '#0096c7'} />}
-                style={[styles.actionsButtons, styles.addToMyUBS, (isUserUBS ? styles.myUBS : {})]}
-            >
-                Minha UBS
-            </Button>
-            
-        </View>
+                <Text style={styles.modalText}>
+                    Você deseja adicionar a {healthUnit.name} como sua UBS?
+                    Caso exista outra UBS definida como sua, ela irá ser susbtituída por esta UBS.
+                </Text>
+            </Modal>
         </>
     )
 }

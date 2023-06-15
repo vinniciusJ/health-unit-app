@@ -5,7 +5,7 @@ export const useUserSession = () => {
     const userSession = useRecoilValue(userSessionSelector)
 
     return {
-        user: userSession, 
+        userID: userSession.id, 
         expirationTime: userSession.exp
     }
 }

@@ -55,6 +55,8 @@ export const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        gap: 16,
         marginBottom: 24,
     },
     yourUBSTag: {
@@ -62,7 +64,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 1,
-        maxHeight: 28,
+        height: 28,
         paddingHorizontal: 24,
         borderRadius: 16,
         borderColor: '#0096c7'
@@ -123,5 +125,8 @@ export const styles = StyleSheet.create({
     },
     myUBS: {
         backgroundColor: '#0096c7'
+    },
+    modalText: {
+        lineHeight: 24
     }
 })

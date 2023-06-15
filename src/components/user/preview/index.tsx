@@ -2,17 +2,18 @@ import { FC } from "react";
 import { Text, View } from "react-native";
 
 import {styles} from './style'
-import { useUserSession } from "../../../hooks/use-user-session";
 import { Button } from "../../button";
 import Feather from '@expo/vector-icons/Feather';
+import { useUser } from "../../../hooks/use-user";
+import { generateAvatarFromInitials } from "../../../utils/generate-avatar-from-initials";
 
 export const UserPreview: FC = () => {
-    const { user } = useUserSession()
+    const { user } = useUser()
 
     return (
         <View style={styles.container}>
             <View style={styles.avatar}>
-                <Text style={styles.initials}>VJ</Text>
+                <Text style={styles.initials}>{user ? generateAvatarFromInitials(user) : 'AA'}</Text>
             </View>
 
             <View style={styles.user}>

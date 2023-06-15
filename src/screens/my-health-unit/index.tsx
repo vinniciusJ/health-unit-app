@@ -11,11 +11,12 @@ import Feather from '@expo/vector-icons/Feather'
 import { useModal } from "../../hooks/use-modal";
 import { Modal } from "../../components/modal";
 import { DefineMyHealthUnit } from "../../components/health-unit/define-my-health-unit";
+import { useUser } from "../../hooks/use-user";
 
 type Props = StackScreenProps<ParamsList, 'health-unit'>
 
 const MyHealthUnit: FC<Props> = ({ navigation }) => {
-    const { user } = useUserSession()
+    const { user } = useUser()
 
     useEffect(() => {
         if(user.healthUnitId){
