@@ -10,15 +10,17 @@ import { setAuthorizationTokenInAPI } from "../utils/set-token-in-api"
 import { authAtom } from "../contexts/auth"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { userSessionSelector } from "../contexts/user-session"
+import { useUserSession } from "./use-user-session"
 
 
 export const useAuth = () => {
     const [ authToken, setAuthToken ] = useRecoilState(authAtom)
-    const userSession = useRecoilValue(userSessionSelector)
+
+    const { expirationTime } = useUserSession()
 
     const isSessionExpired = useMemo(() => {
-        return !userSession || userSession.exp < (new Date().getTime() + 1) / 1000
-    }, [ userSession ])
+        return  expirationTime < (new Date().getTime() + 1) / 1000
+    }, [ expirationTime ])
     
     const navigation = useNavigation()
 
@@ -44,6 +46,5 @@ export const useAuth = () => {
         setAuthToken,
         authToken,
         isSessionExpired,
-        userSession
     }
 }
