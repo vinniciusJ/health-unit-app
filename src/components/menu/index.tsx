@@ -6,9 +6,11 @@ import Feather from '@expo/vector-icons/Feather';
 import { Button } from "../button";
 import { UserPreview } from "../user/preview";
 import FontAwesome from '@expo/vector-icons/FontAwesome5'
+import { useNavigation } from "@react-navigation/native";
 
 export const Menu: FC = () => {
     const { isMenuOpened, toggleMenu } = useMenu()
+    const { navigate } = useNavigation()
 
     if(!isMenuOpened){
         return null
@@ -31,6 +33,7 @@ export const Menu: FC = () => {
                         <Button
                             style={styles.item}
                             textStyle={styles.itemText}
+                            onPress={() => navigate('my-health-unit' as never)}
                             startIcon={<FontAwesome name="hospital" size={28} color='black'/>}
                         >
                             Minha UBS

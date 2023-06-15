@@ -7,11 +7,13 @@ import { createStackNavigator } from '@react-navigation/stack'
 import HomeScreen from './src/screens/home'
 import { LoginScreen } from './src/screens/login'
 import HealthUnitScreen from './src/screens/health-unit'
+import MyHealthUnit from './src/screens/my-health-unit'
 
 export type ParamsList = {
 	login: undefined
 	home: undefined
-	'health-unit': { healthUnitID: number } 
+	'health-unit': { healthUnitID: number },
+	'my-health-unit': undefined
 }
 
 const Stack = createStackNavigator<ParamsList>()
@@ -29,6 +31,11 @@ export default function App() {
 							name="health-unit" 
 							component={HealthUnitScreen}
 							initialParams={{ healthUnitID: 0 }}
+						/>
+						<Stack.Screen 
+							options={{ header: () => null }} 
+							name="my-health-unit" 
+							component={MyHealthUnit}
 						/>
 					</Stack.Navigator>
 				</NavigationContainer>

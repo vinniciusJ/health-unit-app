@@ -1,6 +1,6 @@
 import { RouteProp } from "@react-navigation/native";
 import { FC, useCallback, useMemo } from "react";
-import { Image, Linking, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Image,  SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { ParamsList } from "../../../App";
 import { StackScreenProps } from "@react-navigation/stack";
 import { styles } from "./style";
@@ -10,15 +10,10 @@ import Feather from '@expo/vector-icons/Feather'
 
 import { useHealthUnitDetails } from "../../hooks/use-health-unit-details";
 import { addressToString } from "../../utils/address-to-string";
-import { Address } from "../../schemas/address";
-import { isHealthUnitOpened } from "../../utils/is-health-unit-opened";
-import { OpeningHours } from "../../interfaces/opening-hours";
-import { OPENING_LABELS } from "../../utils/consts";
 import { OpeningStatus } from "../../components/health-unit/opening-status";
 import MapView, { Marker } from "react-native-maps";
 import { Button } from "../../components/button";
 import { call } from "../../utils/call";
-import { Geolocation } from "../../schemas/geolocation";
 import { openOnMaps } from "../../utils/open-on-maps";
 import { withAuthentication } from "../../hocs/with-authentication";
 
@@ -145,4 +140,4 @@ const HealthUnitScreen: FC<Props> = ({ navigation, route }) => {
     )
 }
 
-export default HealthUnitScreen
+export default withAuthentication(HealthUnitScreen)
