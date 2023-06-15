@@ -44,6 +44,7 @@ export const Menu: FC = () => {
                         <Button
                             style={styles.item}
                             textStyle={styles.itemText}
+                            onPress={() => navigate('ubs' as never)}
                             startIcon={<FontAwesome name="hospital" size={28} color='black'/>}
                         >
                             UBS
@@ -51,16 +52,10 @@ export const Menu: FC = () => {
                         <Button
                             style={styles.item}
                             textStyle={styles.itemText}
+                            onPress={() => navigate('upa' as never)}
                             startIcon={<FontAwesome name="hospital" size={28} color='black'/>}
                         >
                             UPAs
-                        </Button>
-                        <Button
-                            style={{...styles.item, gap: 14}}
-                            textStyle={styles.itemText}
-                            startIcon={<Feather name="phone" size={28} color="black" />}
-                        >
-                            Telefones
                         </Button>
                     </View>
 

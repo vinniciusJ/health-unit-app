@@ -9,7 +9,8 @@ export const styles = StyleSheet.create({
         padding: 4,
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        maxHeight: 32,
     },
     closed: {
         borderColor: 'red',
@@ -20,7 +21,8 @@ export const styles = StyleSheet.create({
         padding: 4,
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        maxHeight: 32,
     },
     openedText: {
         color: 'green'

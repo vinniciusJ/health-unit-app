@@ -2,8 +2,7 @@ import { StyleSheet } from "react-native"
 
 export const styles = StyleSheet.create({
     container: {
-        margin: 24,
-        marginTop: 64
+        
     },
     goBack: {
        gap: 16,

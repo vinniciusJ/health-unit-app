@@ -14,22 +14,25 @@ interface Props{
     name: string
     address: Address
     openingHours: OpeningHours
+    listItem?: true
 }
 
 
 
-export const HealthUnitPreview: FC<Props> = ({ id, name, address, openingHours }) => {
+export const HealthUnitPreview: FC<Props> = ({ id, listItem, name, address, openingHours }) => {
     const { navigate } = useNavigation()
 
     return (
         <TouchableOpacity onPress={() => navigate('health-unit' as never, { healthUnitID: id } as never)}>
-            <View style={styles.container}>
-                <Text numberOfLines={1} ellipsizeMode="tail">
-                    {name}
-                </Text>
-                <Text numberOfLines={2} ellipsizeMode="tail">
-                    {addressToString(address)}
-                </Text>
+            <View style={{...styles.container, ...(!listItem && { width: 146 })}}>
+                <View {...(listItem && { style: styles.info })}>
+                    <Text numberOfLines={1} ellipsizeMode="tail">
+                        {name}
+                    </Text>
+                    <Text numberOfLines={2} ellipsizeMode="tail">
+                        {addressToString(address)}
+                    </Text>
+                </View>
                 
                 <OpeningStatus openingHours={openingHours} />
             </View>

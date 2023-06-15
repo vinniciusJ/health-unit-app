@@ -12,10 +12,11 @@ import { useModal } from "../../hooks/use-modal";
 import { Modal } from "../../components/modal";
 import { DefineMyHealthUnit } from "../../components/health-unit/define-my-health-unit";
 import { useUser } from "../../hooks/use-user";
+import { GoBackButton } from "../../components/go-back";
 
-type Props = StackScreenProps<ParamsList, 'health-unit'>
+type Props = StackScreenProps<ParamsList, 'my-health-unit'>
 
-const MyHealthUnit: FC<Props> = ({ navigation }) => {
+const MyHealthUnitScreen: FC<Props> = ({ navigation }) => {
     const { user } = useUser()
 
     useEffect(() => {
@@ -27,16 +28,7 @@ const MyHealthUnit: FC<Props> = ({ navigation }) => {
 
     return (
        <SafeAreaView style={styles.container}>
-            <View>
-                <Button
-                    startIcon={<FontAwesome name="arrow-left" size={24} color="black" />}
-                    style={styles.goBack}
-                    textStyle={styles.goBackTitle}
-                    onPress={() => navigation.navigate('home')}
-                >
-                    Voltar para o mapa
-                </Button>
-            </View>
+            <GoBackButton />
 
             {!user.healthUnitId && (
                 <DefineMyHealthUnit userID={user.id}/>
@@ -45,4 +37,4 @@ const MyHealthUnit: FC<Props> = ({ navigation }) => {
     )
 }
 
-export default withAuthentication(MyHealthUnit)
+export default withAuthentication(MyHealthUnitScreen)
