@@ -8,11 +8,15 @@ import { styles } from "./style";
 import { Button } from "../../components/button";
 import FontAwesome from '@expo/vector-icons/FontAwesome5'
 import Feather from '@expo/vector-icons/Feather'
+import { useModal } from "../../hooks/use-modal";
+import { Modal } from "../../components/modal";
+import { DefineMyHealthUnit } from "../../components/health-unit/define-my-health-unit";
 
 type Props = StackScreenProps<ParamsList, 'health-unit'>
 
 const MyHealthUnit: FC<Props> = ({ navigation }) => {
     const { user } = useUserSession()
+
 
     const hasHealthUnit = Boolean(user.healthUnitId)
 
@@ -29,22 +33,8 @@ const MyHealthUnit: FC<Props> = ({ navigation }) => {
                 </Button>
             </View>
 
-            {hasHealthUnit || (
-                <View style={styles.emptyHealthUnit}>
-                    <Text
-                        style={styles.emptyHealthUnitMessage}
-                    >
-                        Você ainda não possui nenhuma unidade de saúde definida como sua. Deseja definir alguma?
-                    </Text>
-
-                    <Button
-                        startIcon={<Feather name="plus" size={24} color="#FFF" />}
-                        style={styles.addMyUBS}  
-                        textStyle={{ color: '#FFF' }} 
-                    >
-                        Definir minha UBS
-                    </Button>
-                </View>
+            {!hasHealthUnit || (
+                <DefineMyHealthUnit userID={user.id}/>
             )}
        </SafeAreaView>
     )

@@ -7,7 +7,7 @@ import Entypo from '@expo/vector-icons/Entypo';
 
 type Item = {
     label: string
-    value: string
+    value: string | number
 }
 
 interface Props<T extends object>{
