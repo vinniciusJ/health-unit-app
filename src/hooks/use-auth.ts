@@ -40,11 +40,16 @@ export const useAuth = () => {
         }
     }, [])
 
+    const logout = useCallback(() => {
+        setAuthToken('')
+        AsyncStorage.setItem('auth-token', '')
+    }, [])
     
     return {
         signIn: login,
         setAuthToken,
         authToken,
         isSessionExpired,
+        logout
     }
 }

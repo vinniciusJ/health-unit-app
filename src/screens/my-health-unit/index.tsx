@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useMemo } from "react";
 import { SafeAreaView, Text, View } from "react-native";
 import { withAuthentication } from "../../hocs/with-authentication";
 import { StackScreenProps } from "@react-navigation/stack";
@@ -17,8 +17,12 @@ type Props = StackScreenProps<ParamsList, 'health-unit'>
 const MyHealthUnit: FC<Props> = ({ navigation }) => {
     const { user } = useUserSession()
 
+    useEffect(() => {
+        if(user.healthUnitId){
+            navigation.navigate('health-unit', { healthUnitID: user.healthUnitId })
+        }
+    }, [ user ])
 
-    const hasHealthUnit = Boolean(user.healthUnitId)
 
     return (
        <SafeAreaView style={styles.container}>
@@ -33,11 +37,11 @@ const MyHealthUnit: FC<Props> = ({ navigation }) => {
                 </Button>
             </View>
 
-            {!hasHealthUnit || (
+            {!user.healthUnitId && (
                 <DefineMyHealthUnit userID={user.id}/>
             )}
        </SafeAreaView>
     )
 }
 
-export default MyHealthUnit
+export default withAuthentication(MyHealthUnit)

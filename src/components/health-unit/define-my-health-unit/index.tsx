@@ -37,7 +37,6 @@ export const DefineMyHealthUnit: FC<Props> = ({ userID }) => {
     const defineUserHealthUnit = useCallback(async ({ healthUnit }: Form) => {
         try{
             await usersService.defineUserHealthUnit(userID, healthUnit.id)
-            
         }
         catch(error){
             console.log(error as AxiosError)

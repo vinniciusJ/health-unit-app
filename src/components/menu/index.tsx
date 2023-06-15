@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { SafeAreaView, Text, View } from "react-native";
 import { useMenu } from "../../hooks/use-menu";
 import { styles } from "./style";
@@ -7,9 +7,12 @@ import { Button } from "../button";
 import { UserPreview } from "../user/preview";
 import FontAwesome from '@expo/vector-icons/FontAwesome5'
 import { useNavigation } from "@react-navigation/native";
+import { useAuth } from "../../hooks/use-auth";
 
 export const Menu: FC = () => {
     const { isMenuOpened, toggleMenu } = useMenu()
+    const { logout } = useAuth()
+
     const { navigate } = useNavigation()
 
     if(!isMenuOpened){
@@ -63,6 +66,7 @@ export const Menu: FC = () => {
 
                     <View style={styles.logout}>
                         <Button
+                            onPress={logout}
                             style={styles.logoutButton}
                             textStyle={styles.logoutText}
                             startIcon={<Feather name="log-out" size={18} color="black" />}

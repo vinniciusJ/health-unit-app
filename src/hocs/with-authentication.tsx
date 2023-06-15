@@ -11,19 +11,21 @@ export const withAuthentication = <P extends object>(Component: FunctionComponen
             const { isSessionExpired, setAuthToken } = useAuth()
             const { navigate } = useNavigation()
 
-			useEffect(() => {
-				(async () => {
-					const token = await AsyncStorage.getItem('auth-token')
+			// useEffect(() => {
+			// 	(async () => {
+			// 		const token = await AsyncStorage.getItem('auth-token')
 				   
-					setAuthToken(token ?? '')
-				})()
-			}, [])
+			// 		setAuthToken(token ?? '')
+			// 	})()
+			// }, [])
 
-            // useEffect(() => {
-            //     if(isSessionExpired){
-            //         navigate('login' as never)
-            //     }
-            // }, [ isSessionExpired ])
+            useEffect(() => {
+                if(isSessionExpired){
+					AsyncStorage.setItem('auth-token', '')
+
+                    navigate('login' as never)
+                }
+            }, [ isSessionExpired ])
 
 			return <Component {...(props as P)} />
 		}
