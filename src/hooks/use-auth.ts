@@ -11,6 +11,7 @@ import { authAtom } from "../contexts/auth"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { userSessionSelector } from "../contexts/user-session"
 import { useUserSession } from "./use-user-session"
+import { User } from "../schemas/user"
 
 
 export const useAuth = () => {
@@ -44,12 +45,29 @@ export const useAuth = () => {
         setAuthToken('')
         AsyncStorage.setItem('auth-token', '')
     }, [])
+
+    const signup = useCallback(async (data: User) => {
+        try{
+            const response = await AuthService.signUp(data)
+
+            if(response.status === 200){
+                setAuthToken(response.data.token)
+                setAuthorizationTokenInAPI(response.data.token)
+
+                navigation.navigate('home' as never)
+            }
+        }
+        catch(error){
+            console.log(error as AxiosError)
+        }
+    }, [])
     
     return {
         signIn: login,
         setAuthToken,
         authToken,
         isSessionExpired,
-        logout
+        logout,
+        signup
     }
 }

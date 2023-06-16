@@ -14,4 +14,5 @@ export class UsersService {
     updateUser(id: number, data: User): Promise<AxiosResponse> {
         return healthUnitAPI.put(`/user/${id}`, data)
     }
+    
 }

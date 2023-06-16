@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        gap: 72,
+        gap: 64,
     },
     logo: {
         display: 'flex',
@@ -29,6 +29,13 @@ export const styles = StyleSheet.create({
         padding: 8,
     },
     loginButton: {
-        
-    }
+        backgroundColor: '#0096c7',
+        width: '80%',
+        paddingVertical: 12
+    },
+    createAccount: {
+        position: 'absolute',
+        bottom: 48,
+        width: '100%'
+    },
 })

@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import { useNavigation } from "@react-navigation/native";
 import { AxiosError } from "axios";
 import { UsersService } from "../../../services/user";
+import { useUser } from "../../../hooks/use-user";
 
 interface Props{
     userID: number
@@ -25,6 +26,8 @@ const usersService = new UsersService()
 
 export const DefineMyHealthUnit: FC<Props> = ({ userID }) => {
     const { healthUnits, filterHealthUnits } = useHealthUnits()
+    const  { defineUserUBS } = useUser()
+
     const modalRef = useModal()
 
     const { navigate } = useNavigation()
@@ -35,14 +38,7 @@ export const DefineMyHealthUnit: FC<Props> = ({ userID }) => {
     })
 
     const defineUserHealthUnit = useCallback(async ({ healthUnit }: Form) => {
-        try{
-            await usersService.defineUserHealthUnit(userID, healthUnit.id)
-        }
-        catch(error){
-            console.log(error as AxiosError)
-
-            navigate('home' as never)
-        }
+        defineUserUBS(healthUnit.id)
     }, [])
 
     useEffect(() => {

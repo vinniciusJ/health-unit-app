@@ -12,6 +12,7 @@ import { HealthUnitsList } from './src/screens/health-units-list'
 import { HealthUnitType } from './src/schemas/health-unit'
 import UserProfileScreen from './src/screens/user-profile'
 import EditUserScreen from './src/screens/edit-user'
+import { CreateUserScreen } from './src/screens/create-user'
 
 export type ParamsList = {
 	login: undefined
@@ -22,6 +23,7 @@ export type ParamsList = {
 	upa: { type: HealthUnitType }
 	'user-profile': undefined
 	'edit-user': undefined
+	'create-user': undefined
 }
 
 const Stack = createStackNavigator<ParamsList>()
@@ -74,6 +76,12 @@ export default function App() {
 							name="edit-user" 
 							options={{ header: () => null }} 
 							component={EditUserScreen}
+						/>
+
+						<Stack.Screen 
+							name="create-user" 
+							options={{ header: () => null }} 
+							component={CreateUserScreen}
 						/>
 					</Stack.Navigator>
 				</NavigationContainer>
