@@ -95,10 +95,11 @@ const HomeScreen = () => {
                             <Button
                                 onPress={closeSearching}
                                 textStyle={{ color: '#6c757d' }}
+                                
                             >
                                 Cancelar
                             </Button>
-                        )}
+                        )}  
                     </View>
 
 

@@ -1,6 +1,6 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import { ParamsList } from "../../../App";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { ScrollView, Text, View } from "react-native";
 import { Container } from "../../components/container";
 import { useHealthUnits } from "../../hooks/use-health-units";
@@ -11,7 +11,13 @@ type Props = StackScreenProps<ParamsList, 'ubs' | 'upa'>
 
 export const HealthUnitsList: FC<Props> = ({ route }) => {
     const { type } = route.params
-    const { healthUnits } = useHealthUnits({ type })
+    const { healthUnits, filterHealthUnits } = useHealthUnits({ type })
+
+    useEffect(() => {
+        return () => {
+            filterHealthUnits({})
+        }
+    }, [])
 
     return (
         <Container>

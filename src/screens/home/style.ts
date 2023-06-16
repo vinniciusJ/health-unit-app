@@ -50,11 +50,12 @@ export const styles = StyleSheet.create({
     },
     textfield: {
         width: '100%',
+        // backgroundColor: 'red',
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center'
-        // gap: 8
+        alignItems: 'center',
+        gap: 8
     },
     menuButton: {
         backgroundColor: '#FFF',

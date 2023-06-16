@@ -25,8 +25,8 @@ export const HealthUnitsMap: FC<Props> = ({ healthUnits }) => {
                 initialRegion={{
                     latitude: userLocation.latitude,
                     longitude: userLocation.longitude,
-                    latitudeDelta: 0.01,
-                    longitudeDelta: 0.01,
+                    latitudeDelta: 0.1,
+                    longitudeDelta: 0.1,
                 }}
                 
             >

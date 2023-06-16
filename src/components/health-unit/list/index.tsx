@@ -1,5 +1,5 @@
 import { FC, useCallback } from "react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { KeyboardAvoidingView, Platform, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { useFormContext } from 'react-hook-form'
 import { useHealthUnits } from "../../../hooks/use-health-units";
 import { HealthUnitFilter } from "../../../interfaces/health-unit-filter";
@@ -31,32 +31,39 @@ export const HealthUnitsList: FC<Props> = ({ healthUnits }) => {
     }, [ ])
 
     return (
-        <ScrollView 
-            style={styles.list}
-            showsVerticalScrollIndicator={false}    
+        <KeyboardAvoidingView
+            enabled
+            style={{ flex: 1}}
+            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+            keyboardVerticalOffset={0}
         >
-            {healthUnits.map((healthUnit, index) => (
-                <TouchableOpacity 
-                    key={index}  
-                    onPress={() => handleHealthUnitClick(healthUnit.id)}
-                >
-                    <View style={styles.listItem}>
-                        <FontAwesome 
-                            name="hospital" 
-                            size={28} 
-                            color={ICON_COLOR[healthUnit.type]} 
-                        />
-                        <View>  
-                            <HighlightText search={query ?? ''}>
-                                {healthUnit.name}
-                            </HighlightText>
-                            <HighlightText search={query ?? ''}>
-                                {addressToString(healthUnit.address)}
-                            </HighlightText>
+            <ScrollView 
+                style={styles.list}
+                showsVerticalScrollIndicator={false}    
+            >
+                {healthUnits.map((healthUnit, index) => (
+                    <TouchableOpacity 
+                        key={index}  
+                        onPress={() => handleHealthUnitClick(healthUnit.id)}
+                    >
+                        <View style={styles.listItem}>
+                            <FontAwesome 
+                                name="hospital" 
+                                size={28} 
+                                color={ICON_COLOR[healthUnit.type]} 
+                            />
+                            <View>  
+                                <HighlightText search={query ?? ''}>
+                                    {healthUnit.name}
+                                </HighlightText>
+                                <HighlightText search={query ?? ''}>
+                                    {addressToString(healthUnit.address)}
+                                </HighlightText>
+                            </View>
                         </View>
-                    </View>
-                </TouchableOpacity>
-            ))}
-        </ScrollView>
+                    </TouchableOpacity>
+                ))}
+            </ScrollView>
+        </KeyboardAvoidingView>
     )
 }

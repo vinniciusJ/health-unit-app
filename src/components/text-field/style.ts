@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
     container: {
         display: 'flex',
         gap: 8,
-        width: '100%',
+        // width: '100%',
     },
     input: {
         height: 40,
