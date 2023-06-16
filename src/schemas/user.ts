@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { healthUnitSchema } from "./health-unit";
+import { HealthUnit, healthUnitSchema } from "./health-unit";
 
 export const userSchema = z.object({
     id: z.number(),
@@ -11,4 +11,6 @@ export const userSchema = z.object({
     healthUnitId: z.number().optional()
 })
 
-export type User = z.infer<typeof userSchema>
+export interface User extends z.infer<typeof userSchema> {
+    healthUnit: HealthUnit
+}

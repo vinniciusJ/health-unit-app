@@ -18,7 +18,6 @@ export const styles = StyleSheet.create({
         borderColor: '#ccc',
     },
     info: {
-        width: '60%',
         display: 'flex',
         gap: 8, 
     }

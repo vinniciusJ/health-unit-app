@@ -13,6 +13,7 @@ import { Modal } from "../../components/modal";
 import { DefineMyHealthUnit } from "../../components/health-unit/define-my-health-unit";
 import { useUser } from "../../hooks/use-user";
 import { GoBackButton } from "../../components/go-back";
+import { Container } from "../../components/container";
 
 type Props = StackScreenProps<ParamsList, 'my-health-unit'>
 
@@ -27,13 +28,11 @@ const MyHealthUnitScreen: FC<Props> = ({ navigation }) => {
 
 
     return (
-       <SafeAreaView style={styles.container}>
-            <GoBackButton />
-
+       <Container>
             {!user.healthUnitId && (
                 <DefineMyHealthUnit userID={user.id}/>
             )}
-       </SafeAreaView>
+       </Container>
     )
 }
 

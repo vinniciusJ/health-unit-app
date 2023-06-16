@@ -25,7 +25,7 @@ export const HealthUnitPreview: FC<Props> = ({ id, listItem, name, address, open
     return (
         <TouchableOpacity onPress={() => navigate('health-unit' as never, { healthUnitID: id } as never)}>
             <View style={{...styles.container, ...(!listItem && { width: 146 })}}>
-                <View {...(listItem && { style: styles.info })}>
+                <View style={[styles.info, (listItem ? { width: '60%' } : {})]}>
                     <Text numberOfLines={1} ellipsizeMode="tail">
                         {name}
                     </Text>

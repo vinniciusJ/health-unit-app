@@ -22,6 +22,7 @@ import { UsersService } from "../../services/user";
 import { useModal } from "../../hooks/use-modal";
 import { Modal } from "../../components/modal";
 import { useUser } from "../../hooks/use-user";
+import { GoBackButton } from "../../components/go-back";
 
 type Props = StackScreenProps<ParamsList, 'health-unit'>
 
@@ -60,13 +61,7 @@ const HealthUnitScreen: FC<Props> = ({ navigation, route }) => {
     return (
         <>
             <SafeAreaView style={styles.container}>
-                <View style={styles.goBack}>
-                    <TouchableOpacity onPress={() => navigation.navigate('home' as never)}>
-                        <FontAwesome name="arrow-left" size={24} color="black" />
-                    </TouchableOpacity>
-
-                    <Text style={styles.goBackTitle}>Voltar ao mapa</Text>
-                </View>
+               <GoBackButton />
 
                 <ScrollView 
                     style={styles.content}
