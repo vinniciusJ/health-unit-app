@@ -29,7 +29,7 @@ export const UserPreview: FC = () => {
                     onPress={() => navigate('user-profile' as never)}
                     endIcon={<Feather name="chevron-right" size={14} color="#6c757d" />}
                 >
-                    Editar perfil
+                    Ver perfil
                 </Button>
             </View>
         </View>

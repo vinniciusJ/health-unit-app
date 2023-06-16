@@ -4,6 +4,7 @@ export const styles = StyleSheet.create({
     container: {
         display: 'flex',
         gap: 8,
+        width: '100%',
     },
     input: {
         height: 40,
@@ -12,5 +13,9 @@ export const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#CCC',
         padding: 8,
+        backgroundColor: '#fff'
     },
+    label: {
+        fontWeight: 'bold'
+    }
 })

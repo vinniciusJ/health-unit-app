@@ -33,9 +33,16 @@ const UserProfileScreen: FC<Props> = ({ navigation }) => {
                     </View>
                     
                     <View>
-                        <Text style={styles.fullname}>
-                            {user.firstName} {user.lastName}
-                        </Text>
+                        <View style={styles.editContainer}>
+                            <Text style={styles.fullname}>
+                                {user.firstName} {user.lastName}
+                            </Text>
+
+                            <Button 
+                                onPress={() => navigation.navigate('edit-user')}
+                                startIcon={<Feather name="edit-3" size={24} color="#000" />}
+                            />
+                        </View>
                         <Text style={styles.email}>{user.email}</Text>
                     </View>
                 </View>

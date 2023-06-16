@@ -12,5 +12,5 @@ export const userSchema = z.object({
 })
 
 export interface User extends z.infer<typeof userSchema> {
-    healthUnit: HealthUnit
+    healthUnit?: HealthUnit
 }

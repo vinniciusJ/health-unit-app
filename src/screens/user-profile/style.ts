@@ -25,6 +25,11 @@ export const styles = StyleSheet.create({
         fontSize: 32,
         color: '#000'
     },
+    editContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        gap: 8
+    },
     fullname: {
         fontSize: 32,
         marginBottom: 8

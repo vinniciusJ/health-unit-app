@@ -10,4 +10,8 @@ export class UsersService {
     defineUserHealthUnit(userID: number, healthUnitID: number): Promise<AxiosResponse> {
         return healthUnitAPI.put(`/user/${userID}/change-health-unit/${healthUnitID}`)
     }
+
+    updateUser(id: number, data: User): Promise<AxiosResponse> {
+        return healthUnitAPI.put(`/user/${id}`, data)
+    }
 }
